@@ -23,8 +23,8 @@ jobs:
 
     - name: Create local.properties
       run: |
-        echo "ad.appid=${{ secrets.AD_APP_ID || 'ca-app-pub-3940256099942544~3347511713' }}" > local.properties
-        echo "ad.home.banner=${{ secrets.AD_HOME_BANNER || 'ca-app-pub-3940256099942544/6300978111' }}" >> local.properties
+        echo "ad.appid=\"${{ secrets.AD_APP_ID || 'ca-app-pub-3940256099942544~3347511713' }}\"" > local.properties
+        echo "ad.home.banner=\"${{ secrets.AD_HOME_BANNER || 'ca-app-pub-3940256099942544/6300978111' }}\"" >> local.properties
 
     - name: Create google-services.json
       run: |
