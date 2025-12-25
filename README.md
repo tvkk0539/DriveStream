@@ -78,3 +78,41 @@ Starting [v1.3.1](https://github.com/itszechs/DriveStream/tree/1.3.1) users MUST
   https://user-images.githubusercontent.com/52543663/229366054-29e67440-9920-4504-8e1d-4f8eda367f2b.mp4
   
 </details>
+
+## Build Configuration & Secrets
+
+This project uses specific configuration files that are not committed to source control for security reasons.
+
+### 1. `local.properties` (AdMob Config)
+
+This file is required to build the app. It must contain the following keys:
+- `ad.appid`: Your AdMob Application ID.
+- `ad.home.banner`: Your AdMob Banner Unit ID.
+
+**For Local Builds:**
+Create a `local.properties` file in the root directory:
+```properties
+ad.appid=your-app-id
+ad.home.banner=your-banner-id
+```
+
+**For GitHub Actions:**
+The workflow automatically generates this file using secrets or default test values.
+
+### 2. `google-services.json` (Firebase Config)
+
+**What is it?**
+`google-services.json` is a configuration file downloaded from the [Firebase Console](https://console.firebase.google.com/). It links your app to your Firebase project, enabling services like Analytics, Crashlytics, and Google Sign-In.
+
+**Why is it needed?**
+The Android build process uses the `com.google.gms.google-services` plugin, which expects this file to exist in the `app/` directory. Without it, the build fails.
+
+**How to get it?**
+1.  Go to the [Firebase Console](https://console.firebase.google.com/).
+2.  Create a new project or select an existing one.
+3.  Add an Android app to your project using the package name: `zechs.drive.stream`.
+4.  Download the generated `google-services.json` file.
+
+**How to use it?**
+-   **Local Builds:** Place the downloaded file in the `app/` directory.
+-   **GitHub Actions:** The workflow currently generates a dummy file to allow the build to pass. For full functionality (e.g. working Crashlytics in the built APK), you would need to configure the workflow to use your real file.
